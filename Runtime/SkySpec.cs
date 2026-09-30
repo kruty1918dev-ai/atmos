@@ -39,7 +39,7 @@ namespace Kruty1918.Atmos
         [Range(0f, 1f), Tooltip("Star field intensity; 0 disables stars.")]
         public float stars;
 
-        [Tooltip("Enable distance fog when this sky is applied via Skybox.Apply.")]
+        [Tooltip("Enable distance fog when this sky is applied via Sky.Apply.")]
         public bool fog;
 
         public Color fogColor = new Color(0.75f, 0.8f, 0.85f);

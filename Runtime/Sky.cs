@@ -8,7 +8,7 @@ namespace Kruty1918.Atmos
     /// fixed day/evening pair is authoring .mat assets; for runtime-blended
     /// skies use SkyController which reuses a single dynamic material.
     /// </summary>
-    public static class Skybox
+    public static class Sky
     {
         /// <summary>Builds a runtime material on the Atmos/SkyGradient shader.</summary>
         public static Material CreateMaterial(SkySpec spec, string name = "AtmosSky")

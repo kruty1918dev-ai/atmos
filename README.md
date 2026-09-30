@@ -13,7 +13,7 @@ Used in production by [Quiet Camp](https://github.com/kruty1918dev-ai/quiet-camp
 |---|---|
 | `Atmos/SkyGradient` shader | Zenith→horizon→ground gradient skybox, soft sun disc + halo, optional twinkling stars |
 | `SkySpec` | Serializable sky palette (colors, sun, stars, fog) + `Day`/`Evening`/`Night` presets, `Lerp`, JSON round-trip |
-| `Skybox` | `Apply(material)` / `Apply(spec)` — skybox + camera clear flags + fog + GI refresh in one call |
+| `Sky` | `Apply(material)` / `Apply(spec)` — skybox + camera clear flags + fog + GI refresh in one call |
 | `SkyController` | Named skies on a component; `Set("evening")` or smooth `TransitionTo("night", 3f)` |
 | `Atmos/FoliageSway` shader + `FoliageSway` helper | Gentle vertex breeze for grass/flowers; shared materials per color |
 | `Atmos/FireFlame`, `Atmos/FireGlow` shaders | Texture-free animated flames and radial ground glow |
@@ -47,11 +47,11 @@ Sprites/Default). For device builds, add the four `Atmos/*` shaders to
 using Kruty1918.Atmos;
 
 // Instant sky — no assets needed, material is created at runtime.
-Skybox.Apply(SkySpec.Evening, Camera.main);
+Sky.Apply(SkySpec.Evening, Camera.main);
 
 // Your own palette.
 var spec = SkySpec.FromJson(jsonText.text);
-Skybox.Apply(spec);
+Sky.Apply(spec);
 ```
 
 ```csharp
@@ -98,7 +98,7 @@ showing the full API.
 - Mobile-cheap: one overdraw background pass for the sky, vertex anim only for foliage.
 - Data-driven: `SkySpec` and `CampfireSpec` are plain serializable classes — keep them
   in components, JSON files or generate them procedurally.
-- No singletons, no hidden state: `Skybox` is stateless; caches live behind
+- No singletons, no hidden state: `Sky` is stateless; caches live behind
   explicit handles (`FoliageSway.Shared`, `SkyController.CurrentMaterial`).
 
 ## License

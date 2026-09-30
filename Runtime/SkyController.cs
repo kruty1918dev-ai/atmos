@@ -73,7 +73,7 @@ namespace Kruty1918.Atmos
             _current = spec;
             EnsureMaterial();
             spec.ApplyTo(_runtimeMat);
-            Skybox.Apply(_runtimeMat, targetCamera, spec);
+            Sky.Apply(_runtimeMat, targetCamera, spec);
         }
 
         /// <summary>Smoothly blends from the current sky to a named preset.</summary>
@@ -104,7 +104,7 @@ namespace Kruty1918.Atmos
             {
                 var spec = SkySpec.Lerp(from, to, Mathf.SmoothStep(0f, 1f, t / duration));
                 spec.ApplyTo(_runtimeMat);
-                Skybox.ApplyEnvironment(spec);
+                Sky.ApplyEnvironment(spec);
                 yield return null;
             }
             _transition = null;

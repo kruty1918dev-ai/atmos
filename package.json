@@ -22,7 +22,7 @@
   "samples": [
     {
       "displayName": "Sky Presets & Demo Snippets",
-      "description": "Ready-made SkySpec JSON presets (day, evening, night) and code snippets showing Skybox.Apply, SkyController transitions, FoliageSway and Campfire usage.",
+      "description": "Ready-made SkySpec JSON presets (day, evening, night) and code snippets showing Sky.Apply, SkyController transitions, FoliageSway and Campfire usage.",
       "path": "Samples~/Presets"
     }
   ]

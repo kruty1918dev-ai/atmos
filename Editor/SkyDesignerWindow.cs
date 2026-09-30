@@ -91,7 +91,7 @@ namespace Kruty1918.Atmos.Editor
         void PushPreview()
         {
             _spec.ApplyTo(_preview);
-            Skybox.Apply(_preview, null, _spec);
+            Sky.Apply(_preview, null, _spec);
         }
 
         void StopPreview()

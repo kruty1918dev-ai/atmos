@@ -3,24 +3,24 @@
 Atmos is a small toolkit of **procedural atmosphere** pieces for calm casual
 games. It has three pillars, all texture-free and data-driven:
 
-1. **Sky** — `Atmos/SkyGradient` shader + `SkySpec` palette + `Skybox`/`SkyController` API
+1. **Sky** — `Atmos/SkyGradient` shader + `SkySpec` palette + `Sky`/`SkyController` API
 2. **Foliage** — `Atmos/FoliageSway` shader + `FoliageSway` material helper
 3. **Fire** — `Atmos/FireFlame` + `Atmos/FireGlow` shaders + `Campfire` builder
 
 ## The sky pipeline
 
 ```
-SkySpec ──ApplyTo──> Material (Atmos/SkyGradient) ──Skybox.Apply──> RenderSettings.skybox
+SkySpec ──ApplyTo──> Material (Atmos/SkyGradient) ──Sky.Apply──> RenderSettings.skybox
 ```
 
 - **Fixed palettes** (a day/evening pair shipped with the game): author `.mat`
-  assets in the Sky Designer, then call `Skybox.Apply(dayMat)` — zero runtime
+  assets in the Sky Designer, then call `Sky.Apply(dayMat)` — zero runtime
   allocation, materials live in your Resources.
 - **Runtime-defined or animated skies**: keep `SkySpec` data (component fields,
-  JSON files, procedural) and let `Skybox.Apply(spec)` or `SkyController`
+  JSON files, procedural) and let `Sky.Apply(spec)` or `SkyController`
   create/lerp a runtime material.
 
-`Skybox.Apply` also: sets the camera to `Skybox` clear flags, applies or
+`Sky.Apply` also: sets the camera to `Sky` clear flags, applies or
 disables fog per spec, and calls `DynamicGI.UpdateEnvironment()` so ambient
 light follows the sky.
 

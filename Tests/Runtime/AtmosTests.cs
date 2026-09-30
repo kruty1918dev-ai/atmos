@@ -50,7 +50,7 @@ public class AtmosTests
     [Test]
     public void Skybox_CreateMaterial_ReturnsConfiguredMaterial()
     {
-        var mat = Skybox.CreateMaterial(SkySpec.Evening);
+        var mat = Sky.CreateMaterial(SkySpec.Evening);
         Assert.NotNull(mat);
         Assert.AreEqual(SkySpec.Evening.horizon, mat.GetColor("_HorizonColor"));
         Object.DestroyImmediate(mat);
