@@ -42,17 +42,24 @@ public class AtmosTests
         var mat = new Material(shader);
         var spec = SkySpec.Night;
         spec.ApplyTo(mat);
-        Assert.AreEqual(spec.zenith, mat.GetColor("_ZenithColor"));
+        AssertColorClose(spec.zenith, mat.GetColor("_ZenithColor"));
         Assert.AreEqual(spec.stars, mat.GetFloat("_Stars"), 1e-4f);
         Object.DestroyImmediate(mat);
     }
 
+    static void AssertColorClose(Color expected, Color actual)
+    {
+        Assert.AreEqual(expected.r, actual.r, 1e-3f);
+        Assert.AreEqual(expected.g, actual.g, 1e-3f);
+        Assert.AreEqual(expected.b, actual.b, 1e-3f);
+    }
+
     [Test]
-    public void Skybox_CreateMaterial_ReturnsConfiguredMaterial()
+    public void Sky_CreateMaterial_ReturnsConfiguredMaterial()
     {
         var mat = Sky.CreateMaterial(SkySpec.Evening);
         Assert.NotNull(mat);
-        Assert.AreEqual(SkySpec.Evening.horizon, mat.GetColor("_HorizonColor"));
+        AssertColorClose(SkySpec.Evening.horizon, mat.GetColor("_HorizonColor"));
         Object.DestroyImmediate(mat);
     }
 

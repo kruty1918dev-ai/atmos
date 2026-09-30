@@ -92,7 +92,7 @@ namespace Kruty1918.Atmos
             quad.transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
             quad.transform.localScale = Vector3.one * spec.glowRadius;
             var col = quad.GetComponent<Collider>();
-            if (col != null) Object.Destroy(col);
+            if (col != null) DestroyCollider(col);
             mat.SetColor("_Color", spec.glowColor);
             mat.SetFloat("_Intensity", spec.glowIntensity);
             mat.SetFloat("_Seed", 3.7f);
@@ -113,11 +113,17 @@ namespace Kruty1918.Atmos
                 quad.transform.localRotation = Quaternion.Euler(0f, 45f + (180f / Mathf.Max(1, spec.flameQuads)) * i, 0f);
                 quad.transform.localScale = spec.flameScale;
                 var col = quad.GetComponent<Collider>();
-                if (col != null) Object.Destroy(col);
+                if (col != null) DestroyCollider(col);
                 var mat = new Material(shader);
                 mat.SetFloat("_Seed", 11f * i + 2f);
                 quad.GetComponent<Renderer>().sharedMaterial = mat;
             }
+        }
+
+        static void DestroyCollider(Collider col)
+        {
+            if (Application.isPlaying) Object.Destroy(col);
+            else Object.DestroyImmediate(col);
         }
 
         /// <summary>Warm point light with Perlin flicker — the "volume" of the fire.</summary>
