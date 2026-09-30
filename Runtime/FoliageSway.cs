@@ -15,19 +15,24 @@ namespace Kruty1918.Atmos
     {
         public static readonly FoliageSway Shared = new FoliageSway();
 
-        readonly Dictionary<Color, Material> _byColor = new Dictionary<Color, Material>();
+        // Materials are cached per (color, amplitude, frequency): props that
+        // share a tint but need a different sway character — e.g. a slow tree
+        // canopy vs quick grass — must not fight over one material's params.
+        readonly Dictionary<(Color, float, float), Material> _byParams =
+            new Dictionary<(Color, float, float), Material>();
 
         /// <summary>Shared sway material for a base color (created on demand).</summary>
         public Material MaterialFor(Color baseColor, float amplitude = 0.05f, float frequency = 1.6f)
         {
-            if (!_byColor.TryGetValue(baseColor, out var mat) || mat == null)
+            var key = (baseColor, amplitude, frequency);
+            if (!_byParams.TryGetValue(key, out var mat) || mat == null)
             {
                 mat = AtmosShaders.NewMaterial(AtmosShaders.FoliageSway, "FoliageSway");
                 if (mat == null) return null;
                 mat.SetColor("_BaseColor", baseColor);
                 mat.SetFloat("_SwayAmp", amplitude);
                 mat.SetFloat("_SwayFreq", frequency);
-                _byColor[baseColor] = mat;
+                _byParams[key] = mat;
             }
             return mat;
         }
@@ -57,6 +62,6 @@ namespace Kruty1918.Atmos
         }
 
         /// <summary>Drops cached materials (they remain assigned; new ones are created).</summary>
-        public void Clear() => _byColor.Clear();
+        public void Clear() => _byParams.Clear();
     }
 }
