@@ -52,7 +52,13 @@ Shader "Atmos/SkyGradient"
                 v2f o;
                 o.pos = UnityObjectToClipPos(v.vertex);
                 // Pin to far plane; reversed-Z platforms put far at z=0.
-                o.pos.z = lerp(o.pos.w * 0.99999f, 0.00001f, UNITY_REVERSED_Z);
+                // UNITY_REVERSED_Z is not defined on every target (GLES3), so
+                // select the convention at compile time instead of lerping.
+#if defined(UNITY_REVERSED_Z) && UNITY_REVERSED_Z
+                o.pos.z = 0.00001f;
+#else
+                o.pos.z = o.pos.w * 0.99999f;
+#endif
                 o.dir = v.vertex.xyz;
                 return o;
             }
